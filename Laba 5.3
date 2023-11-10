@@ -1,0 +1,52 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+double f(const double x);
+int main() {
+    double yp, yk, n;
+    cout << "yp = ";
+    cin >> yp;
+    cout << "yk = ";
+    cin >> yk;
+    cout << "n = ";
+    cin >> n;
+
+    double dy = (yk - yp) / n;
+   
+    double y = yp;
+
+    while (y <= yk)         
+        {
+        double expression = f(1 + sqrt(y) + y) + pow(f(1), 2) * (1 + f(1) + pow(f(sqrt(y)), 2));
+
+        cout << y << "\t" << expression << endl;
+
+        y += dy;
+    }
+
+    return 0;
+}
+
+double f(const double x) {
+    if (abs(x) >= 1) {
+        return (sin(x / 2) / (1 + cos(x) * cos(x)));
+    }
+    else {      
+        double S = 0;
+        int i = 0;
+        double a = 1;
+        S = a;
+        do {
+            i++;
+            double numerator = pow(x, 2 * i);
+            double denominator = 1;
+            for (int j = 1; j <= 3 * i; j++) {
+                denominator *= j;
+            }
+            a *= numerator / denominator;
+            S += a;
+        } while (i < 6);
+        return S;
+    }
+}
